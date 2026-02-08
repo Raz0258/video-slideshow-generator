@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+venv/
+env/
+.venv/
+
+# Media files (large/personal)
+Images/
+Audio/
+Done Videos/
+*.mp4
+*.avi
+*.mov
+*.mp3
+*.m4a
+*.wav
+
+# Backups
+Backup/
+
+# Logs
+Logs/
+*.log
+
+# Temp files
+temp_segments/
+nul
+*.tmp
+
+# IDE / tools
+.claude/
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# User-specific project configs (contain absolute paths)
+config/projects/

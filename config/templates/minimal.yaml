@@ -1,0 +1,63 @@
+# Minimal Slideshow Template
+# Simple slideshow without text overlays - photos and music only
+
+project:
+  name: "Simple Slideshow"
+  description: "Photo slideshow without text"
+  version: "1.0"
+
+# !! UPDATE THESE PATHS !!
+paths:
+  images_dir: "path/to/photos"
+  audio_dir: "path/to/music"
+  output_file: "path/to/output/slideshow.mp4"
+  preview_file: "path/to/output/slideshow_preview.mp4"
+
+# !! SET YOUR SPECIAL PHOTO !!
+special_images:
+  opening_closing: "photo.jpg"
+
+# Standard settings with fast encoding
+video_settings:
+  resolution: [1920, 1080]
+  fps: 30
+  crf: 23
+  preset: "fast"  # Faster encoding
+
+# Simple timing
+sequences:
+  opening:
+    part1_duration: 3.0
+    part2_duration: 0.0  # Skip text part
+  images:
+    duration_per_image: 6.0
+  closing:
+    min_duration: 5.0
+
+# Clean, simple style
+style:
+  transitions:
+    duration: 0.9
+    categories: ["gentle", "dynamic", "artistic"]
+    weights: [0.90, 0.10, 0.00]  # Mostly simple fades
+
+  ken_burns:
+    application_rate: 0.50  # Less movement
+    zoom_range: [1.0, 1.05]  # Minimal zoom
+    pan_amount: 0.04
+    speed_variations: [1.0]  # Consistent speed
+
+  color_grading:
+    preset: "neutral"  # No color adjustments
+
+  audio:
+    fade_in: 1.0
+    fade_out: 2.0
+
+# No text overlays - pure photo slideshow
+text_overlays:
+  opening:
+    enabled: false
+
+  closing:
+    enabled: false

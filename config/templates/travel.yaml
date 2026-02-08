@@ -1,0 +1,131 @@
+# Travel Adventure Template
+# Dynamic theme with energetic transitions and vibrant colors
+
+project:
+  name: "Travel Adventures"
+  description: "Travel memories slideshow"
+  version: "1.0"
+
+# !! UPDATE THESE PATHS !!
+paths:
+  images_dir: "path/to/travel/photos"
+  audio_dir: "path/to/travel/music"
+  output_file: "path/to/output/travel_slideshow.mp4"
+  preview_file: "path/to/output/travel_preview.mp4"
+
+# !! SET YOUR SPECIAL PHOTO !!
+special_images:
+  opening_closing: "favorite_destination.jpg"
+
+# Standard video settings
+video_settings:
+  resolution: [1920, 1080]
+  fps: 30
+  crf: 23
+  preset: "medium"
+
+# Adventurous pacing
+sequences:
+  opening:
+    part1_duration: 2.5
+    part2_duration: 5.5
+  images:
+    duration_per_image: 5.5  # Quick pace to show more places
+  closing:
+    min_duration: 7.0
+
+# Dynamic, adventurous style
+style:
+  transitions:
+    duration: 0.8
+    categories: ["gentle", "dynamic", "artistic"]
+    weights: [0.50, 0.40, 0.10]  # More dynamic transitions
+
+  ken_burns:
+    application_rate: 0.80  # Lots of movement
+    zoom_range: [1.0, 1.12]  # More dramatic zoom
+    pan_amount: 0.10  # More pan movement
+    speed_variations: [0.7, 0.85, 1.0]
+
+  color_grading:
+    preset: "vibrant"  # Bright, saturated colors
+
+  audio:
+    fade_in: 0.8
+    fade_out: 2.0
+
+# Adventure-themed text
+text_overlays:
+  opening:
+    enabled: true
+    main:
+      text: "Our Journey"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 88
+      fontcolor: "white"
+      position:
+        x: "(w-text_w)/2"
+        y: "810-text_h/2"
+      shadow:
+        color: "black@0.7"
+        x: 4
+        y: 4
+      effects:
+        fade_in: 0.8
+        fade_out: 0.8
+      text_shaping: 0
+
+  closing:
+    enabled: true
+    main:
+      text: "What an Adventure!"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 88
+      fontcolor: "white"
+      position:
+        x: "(w-text_w)/2"
+        y_offset: -70
+      shadow:
+        color: "black@0.7"
+        x: 4
+        y: 4
+      effects:
+        fade_in: 1.2
+        fade_out: 2.0
+      text_shaping: 0
+
+    subtitles:
+      - text: "Exploring the world together"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 50
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 48
+        shadow:
+          color: "black@0.7"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 1.2
+          fade_out: 2.0
+        text_shaping: 0
+
+      - text: "Making memories everywhere"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 46
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 105
+        shadow:
+          color: "black@0.7"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 1.2
+          fade_out: 2.0
+        text_shaping: 0
+
+    base_position:
+      y: 0.75

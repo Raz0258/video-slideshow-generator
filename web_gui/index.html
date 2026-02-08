@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slideshow Configuration Builder</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Slideshow Configuration Builder</h1>
+            <p>Create professional video slideshows with an easy-to-use interface</p>
+        </div>
+
+        <div class="main-content">
+            <div class="form-panel">
+                <div class="validation-status" id="validationStatus"></div>
+
+                <div class="tabs">
+                    <button class="tab active" data-tab="start">Get Started</button>
+                    <button class="tab" data-tab="project">Project</button>
+                    <button class="tab" data-tab="paths">Paths</button>
+                    <button class="tab" data-tab="video">Video</button>
+                    <button class="tab" data-tab="timing">Timing</button>
+                    <button class="tab" data-tab="effects">Effects</button>
+                    <button class="tab" data-tab="text">Text Overlays</button>
+                </div>
+
+                <!-- Start Tab -->
+                <div class="tab-content active" data-tab="start">
+                    <div class="section-header">Choose Your Workflow</div>
+                    <p style="margin-bottom: 30px; color: #666;">Select how you want to create your slideshow configuration.</p>
+
+                    <div class="template-selector">
+                        <div class="template-card" data-template="new" onclick="startNewVideo()">
+                            <h3>Create New Video</h3>
+                            <p>Start with empty configuration and default settings</p>
+                        </div>
+                        <div class="template-card" data-template="existing" onclick="document.getElementById('loadConfigFile').click()">
+                            <h3>Modify Existing Video</h3>
+                            <p>Upload and edit an existing YAML configuration</p>
+                        </div>
+                    </div>
+
+                    <input type="file" id="loadConfigFile" accept=".yaml,.yml" style="display: none;" onchange="loadExistingConfig(event)">
+
+                    <div class="button-group" style="margin-top: 30px;">
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Project Settings →</button>
+                    </div>
+                </div>
+
+                <!-- Project Tab -->
+                <div class="tab-content" data-tab="project">
+                    <div class="section-header">Project Information</div>
+
+                    <div class="form-group">
+                        <label class="required">Project Name</label>
+                        <input type="text" id="projectName" placeholder="My Family Slideshow" required>
+                        <div class="help-text">This will be used as the default output filename</div>
+                        <div class="error-text">Project name is required</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="projectDescription" rows="3" placeholder="Optional description of your slideshow"></textarea>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Paths →</button>
+                    </div>
+                </div>
+
+                <!-- Paths Tab -->
+                <div class="tab-content" data-tab="paths">
+                    <div class="section-header">File Paths</div>
+
+                    <div class="form-group">
+                        <label class="required">Images Directory</label>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <input type="text" id="imagesDir" class="path-input" placeholder="C:/Users/YourName/Pictures/MySlideshow" required style="flex: 1;">
+                            <button class="btn btn-secondary" onclick="openFolderBrowser('imagesDir')" style="min-width: 100px;">Browse</button>
+                        </div>
+                        <div class="help-text">Click Browse to select a folder, or paste the full folder path. Must contain at least 2 images (JPG, PNG).</div>
+                        <div class="error-text">Images directory is required</div>
+                        <div class="folder-feedback" id="imagesDirFeedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Audio Directory</label>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <input type="text" id="audioDir" class="path-input" placeholder="C:/Users/YourName/Music" required style="flex: 1;">
+                            <button class="btn btn-secondary" onclick="openFolderBrowser('audioDir')" style="min-width: 100px;">Browse</button>
+                        </div>
+                        <div class="help-text">Click Browse to select a folder, or paste the full folder path. Must contain at least 1 audio file (MP3, WAV).</div>
+                        <div class="error-text">Audio directory is required</div>
+                        <div class="folder-feedback" id="audioDirFeedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Output Directory</label>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <input type="text" id="outputDir" class="path-input" placeholder="C:/Users/YourName/Videos" required style="flex: 1;">
+                            <button class="btn btn-secondary" onclick="openFolderBrowser('outputDir')" style="min-width: 100px;">Browse</button>
+                        </div>
+                        <div class="help-text">Click Browse to select where the video will be saved, or paste the full folder path.</div>
+                        <div class="error-text">Output directory is required</div>
+                        <div class="folder-feedback" id="outputDirFeedback"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Special Photo (Opening/Closing)</label>
+                        <div style="display: flex; gap: 10px; align-items: flex-start;">
+                            <input type="text" id="specialPhoto" class="path-input" placeholder="C:/Users/RAZ/Desktop/.../Photos/Special_photo.jpg" required style="flex: 1;">
+                            <button class="btn btn-secondary" onclick="openFileBrowser('specialPhoto')" style="min-width: 100px;">Browse</button>
+                        </div>
+                        <div class="help-text">Click Browse to navigate to your images folder and select the special photo, or paste the full path. Use forward slashes (/).</div>
+                        <div class="error-text">Special photo path is required</div>
+                        <div class="folder-feedback" id="specialPhotoFeedback"></div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Video Settings →</button>
+                    </div>
+                </div>
+
+                <!-- Video Tab -->
+                <div class="tab-content" data-tab="video">
+                    <div class="section-header">Video Settings</div>
+
+                    <div class="form-group">
+                        <label>Resolution</label>
+                        <select id="resolution">
+                            <option value="1920,1080">1920×1080 (Full HD)</option>
+                            <option value="1280,720">1280×720 (HD)</option>
+                            <option value="3840,2160">3840×2160 (4K)</option>
+                        </select>
+                        <div class="help-text">Higher resolution = better quality but larger file size and longer rendering</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Frame Rate (FPS)</label>
+                        <select id="fps">
+                            <option value="24">24 FPS (Cinematic)</option>
+                            <option value="30" selected>30 FPS (Standard)</option>
+                            <option value="60">60 FPS (Smooth)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Quality (CRF)</label>
+                        <div class="slider-group">
+                            <input type="range" id="crf" min="0" max="51" value="18" step="1">
+                            <span class="value"><span id="crfValue">18</span> (Excellent)</span>
+                        </div>
+                        <div class="help-text">Lower = better quality but larger file. 18=Visually Lossless, 23=Good, 28=Fair</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Encoding Speed</label>
+                        <select id="preset">
+                            <option value="ultrafast">Ultrafast (Fastest, Largest File)</option>
+                            <option value="superfast">Superfast</option>
+                            <option value="veryfast">Very Fast</option>
+                            <option value="faster">Faster</option>
+                            <option value="fast">Fast</option>
+                            <option value="medium" selected>Medium (Balanced)</option>
+                            <option value="slow">Slow (Better Compression)</option>
+                            <option value="slower">Slower</option>
+                            <option value="veryslow">Very Slow (Best Compression)</option>
+                        </select>
+                        <div class="help-text">Slower presets take longer but produce smaller files with same quality</div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Timing →</button>
+                    </div>
+                </div>
+
+                <!-- Timing Tab -->
+                <div class="tab-content" data-tab="timing">
+                    <div class="section-header">Sequence Timing</div>
+
+                    <div class="form-group">
+                        <label>Opening Part 1 Duration (seconds)</label>
+                        <input type="number" id="openingPart1" value="3.0" min="1" max="10" step="0.5">
+                        <div class="help-text">Duration of special photo alone at the beginning</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Opening Part 2 Duration (seconds)</label>
+                        <input type="number" id="openingPart2" value="6.0" min="2" max="15" step="0.5">
+                        <div class="help-text">Duration of special photo with opening text overlay</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Image Duration (seconds)</label>
+                        <input type="number" id="imageDuration" value="6.0" min="2" max="15" step="0.5">
+                        <div class="help-text">How long each regular photo is displayed. Leave as default to auto-calculate based on audio length.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Minimum Closing Duration (seconds)</label>
+                        <input type="number" id="closingDuration" value="8.0" min="4" max="20" step="0.5">
+                        <div class="help-text">Minimum duration for closing sequence with text</div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Effects →</button>
+                    </div>
+                </div>
+
+                <!-- Effects Tab -->
+                <div class="tab-content" data-tab="effects">
+                    <div class="section-header">Visual Effects</div>
+
+                    <div class="form-group">
+                        <label>Transition Duration (seconds)</label>
+                        <input type="number" id="transitionDuration" value="0.9" min="0.3" max="2.0" step="0.1">
+                        <div class="help-text">Overlap time between clips during transitions</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Transition Style<span class="transition-total" id="transitionTotal">(Total: 100%)</span></label>
+                        <div class="help-text" style="margin-bottom: 10px;">Percentage of each transition type (must total 100%)</div>
+                        <div style="display: grid; gap: 10px;">
+                            <div>
+                                <label style="font-weight: normal;">Gentle (fades, dissolves)</label>
+                                <div class="slider-group">
+                                    <input type="range" id="transGentle" min="0" max="100" value="70" step="5">
+                                    <span class="value"><span id="transGentleValue">70</span>%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="font-weight: normal;">Dynamic (slides, wipes)</label>
+                                <div class="slider-group">
+                                    <input type="range" id="transDynamic" min="0" max="100" value="20" step="5">
+                                    <span class="value"><span id="transDynamicValue">20</span>%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label style="font-weight: normal;">Artistic (creative effects)</label>
+                                <div class="slider-group">
+                                    <input type="range" id="transArtistic" min="0" max="100" value="10" step="5">
+                                    <span class="value"><span id="transArtisticValue">10</span>%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="transition-warning" id="transitionWarning">Transition weights must total 100% (currently: <span id="currentTotal">100</span>%)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Ken Burns Effect (Zoom & Pan)</label>
+                        <div class="slider-group">
+                            <input type="range" id="kenBurns" min="0" max="100" value="65" step="5">
+                            <span class="value"><span id="kenBurnsValue">65</span>% of images</span>
+                        </div>
+                        <div class="help-text">Percentage of images that get subtle zoom and pan animation</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Color Grading</label>
+                        <select id="colorGrading">
+                            <option value="warm" selected>Warm (Family photos, vintage look)</option>
+                            <option value="vibrant">Vibrant (Bright colors, modern look)</option>
+                            <option value="soft">Soft (Gentle, film-like quality)</option>
+                            <option value="neutral">Neutral (No color adjustments)</option>
+                        </select>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 25px;">Particle Animations</div>
+
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="particleEnabled">
+                            <label for="particleEnabled">Enable particle overlay animations</label>
+                        </div>
+                        <div class="help-text">Add particle effects during photo transitions (requires Pillow: pip install Pillow)</div>
+                    </div>
+
+                    <div id="particleFields" style="display: none;">
+                        <div class="form-group">
+                            <label>Particle Type</label>
+                            <select id="particleType">
+                                <option value="random" selected>Random (mix all types)</option>
+                                <option value="hearts">Hearts (floating upward)</option>
+                                <option value="sparkles">Sparkles (twinkling)</option>
+                                <option value="petals">Petals (falling gently)</option>
+                                <option value="confetti">Confetti (celebration)</option>
+                            </select>
+                            <div class="help-text">Choose the type of particle animation</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Particle Size</label>
+                            <select id="particleSize">
+                                <option value="extra_small">Extra Small</option>
+                                <option value="small">Small</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="large">Large</option>
+                                <option value="extra_large">Extra Large</option>
+                            </select>
+                            <div class="help-text">Size of the particle effects</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Particle Density</label>
+                            <div class="slider-group">
+                                <input type="range" id="particleDensity" min="10" max="100" value="50" step="5">
+                                <span class="value"><span id="particleDensityValue">50</span>%</span>
+                            </div>
+                            <div class="help-text">How many particles appear on screen</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Application Rate</label>
+                            <div class="slider-group">
+                                <input type="range" id="particleRate" min="10" max="100" value="70" step="5">
+                                <span class="value"><span id="particleRateValue">70</span>% of transitions</span>
+                            </div>
+                            <div class="help-text">Percentage of transitions that get particle effects</div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="particleOpening" checked>
+                                <label for="particleOpening">Apply to opening sequence</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="particleClosing" checked>
+                                <label for="particleClosing">Apply to closing sequence</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="nextTab()">Continue to Text Overlays →</button>
+                    </div>
+                </div>
+
+                <!-- Text Tab -->
+                <div class="tab-content" data-tab="text">
+                    <div class="section-header">Opening Text</div>
+
+                    <div class="checkbox-group form-group">
+                        <input type="checkbox" id="openingEnabled" checked>
+                        <label for="openingEnabled">Enable opening text overlay</label>
+                    </div>
+
+                    <div id="openingTextFields">
+                        <div class="form-group">
+                            <label>Opening Text</label>
+                            <input type="text" id="openingText" placeholder="Welcome to Our Memories">
+                            <div class="help-text">Text to display on the opening sequence</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Opening Text Size</label>
+                            <input type="number" id="openingSize" value="80" min="20" max="150" step="10">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Opening Text Color</label>
+                            <select id="openingColor">
+                                <option value="white" selected>White</option>
+                                <option value="gold">Gold</option>
+                                <option value="black">Black</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="section-header" style="margin-top: 30px;">Closing Text</div>
+
+                    <div class="checkbox-group form-group">
+                        <input type="checkbox" id="closingEnabled" checked>
+                        <label for="closingEnabled">Enable closing text overlay</label>
+                    </div>
+
+                    <div id="closingTextFields">
+                        <div class="form-group">
+                            <label>Closing Main Text</label>
+                            <input type="text" id="closingText" placeholder="Thank You for Watching!">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Closing Text Size</label>
+                            <input type="number" id="closingSize" value="90" min="20" max="150" step="10">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Closing Text Color</label>
+                            <select id="closingColor">
+                                <option value="gold" selected>Gold</option>
+                                <option value="white">White</option>
+                                <option value="black">Black</option>
+                                <option value="red">Red</option>
+                                <option value="blue">Blue</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subtitle 1 (Optional)</label>
+                            <input type="text" id="subtitle1" placeholder="Created with Love">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Subtitle 2 (Optional)</label>
+                            <input type="text" id="subtitle2" placeholder="Family Memories 2024">
+                        </div>
+                    </div>
+
+                    <div class="button-group">
+                        <button class="btn btn-secondary" onclick="prevTab()">← Back</button>
+                        <button class="btn btn-primary" onclick="validateAndGenerate()">Review & Generate</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-header">YAML Preview</div>
+                <div class="yaml-preview" id="yamlPreview"># Your configuration will appear here
+# Fill in the required fields to generate YAML</div>
+
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="downloadYAML()" style="width: 100%;">
+                        Download YAML Only
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Summary Modal -->
+    <div class="modal-overlay" id="summaryModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Configuration Summary</h2>
+                <p style="opacity: 0.9; margin-top: 5px;">Review your settings before generating the video</p>
+            </div>
+            <div class="modal-body">
+                <div class="summary-section">
+                    <h3>Project Details</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Project Name:</span>
+                        <span class="summary-value" id="sum-project-name">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Description:</span>
+                        <span class="summary-value" id="sum-project-desc">-</span>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Media Files</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Number of Images:</span>
+                        <span class="summary-value" id="sum-image-count">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Audio File:</span>
+                        <span class="summary-value" id="sum-audio-file">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Images Directory:</span>
+                        <span class="summary-value" id="sum-images-dir">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Audio Directory:</span>
+                        <span class="summary-value" id="sum-audio-dir">-</span>
+                    </div>
+                </div>
+
+                <div class="summary-section">
+                    <h3>Video Settings</h3>
+                    <div class="summary-item">
+                        <span class="summary-label">Resolution:</span>
+                        <span class="summary-value" id="sum-resolution">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Frame Rate:</span>
+                        <span class="summary-value" id="sum-fps">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Estimated Duration:</span>
+                        <span class="summary-value" id="sum-duration">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Output Location:</span>
+                        <span class="summary-value" id="sum-output">-</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSummaryModal()">← Back to Edit</button>
+                <button class="btn btn-secondary" onclick="downloadYAMLFromSummary()">Download YAML Only</button>
+                <button class="btn btn-primary" onclick="generateVideoNow()">Generate Video Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Progress Modal -->
+    <div class="modal-overlay" id="progressModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="progress-title">Generating Video</h2>
+            </div>
+            <div class="modal-body">
+                <div class="progress-container" id="progressContent">
+                    <div class="spinner"></div>
+                    <div class="progress-message" id="progress-message">Preparing video generation...</div>
+                    <div class="progress-details" id="progress-details">This may take several minutes depending on video length and quality settings</div>
+                </div>
+            </div>
+            <div class="modal-footer" id="progressFooter" style="display: none;">
+                <button class="btn btn-primary" onclick="closeProgressModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Folder Browser Modal -->
+    <div class="modal-overlay" id="folderBrowserModal">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2>Select Folder</h2>
+                <p style="opacity: 0.9; margin-top: 5px;">Browse and select a folder</p>
+            </div>
+            <div class="modal-body">
+                <!-- Loading spinner -->
+                <div id="browserLoading" class="browser-loading" style="display: none;">
+                    <div class="spinner"></div>
+                    <div style="margin-top: 15px;">Loading folders...</div>
+                </div>
+
+                <!-- Error message -->
+                <div id="browserError" class="browser-error" style="display: none;"></div>
+
+                <!-- Browser content -->
+                <div id="browserContent" class="browser-container">
+                    <div class="browser-sidebar">
+                        <h3 class="sidebar-title">Quick Access</h3>
+                        <div id="quickPathsList"></div>
+                    </div>
+
+                    <div class="browser-main">
+                        <div class="browser-breadcrumb" id="browserBreadcrumb"></div>
+                        <div class="folder-grid" id="folderGrid"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeFolderBrowser()">Cancel</button>
+                <button class="btn btn-primary" onclick="selectCurrentFolder()">Select This Folder</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load modules in dependency order -->
+    <script src="js/config.js"></script>          <!-- Configuration building & YAML generation -->
+    <script src="js/validation.js"></script>      <!-- Validation logic -->
+    <script src="js/modals.js"></script>          <!-- Modal dialogs -->
+    <script src="js/api.js"></script>             <!-- Backend communication -->
+    <script src="js/file-browser.js"></script>    <!-- Folder browser functionality -->
+    <script src="js/app.js"></script>             <!-- Main application & initialization -->
+</body>
+</html>

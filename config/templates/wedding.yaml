@@ -1,0 +1,131 @@
+# Wedding Slideshow Template
+# Elegant theme with soft transitions and romantic colors
+
+project:
+  name: "Our Wedding Day"
+  description: "Wedding celebration slideshow"
+  version: "1.0"
+
+# !! UPDATE THESE PATHS !!
+paths:
+  images_dir: "path/to/wedding/photos"
+  audio_dir: "path/to/wedding/music"
+  output_file: "path/to/output/wedding_slideshow.mp4"
+  preview_file: "path/to/output/wedding_preview.mp4"
+
+# !! SET YOUR SPECIAL PHOTO !!
+special_images:
+  opening_closing: "bride_and_groom.jpg"
+
+# Video settings optimized for wedding videos
+video_settings:
+  resolution: [1920, 1080]
+  fps: 30
+  crf: 18  # High quality for important memories
+  preset: "slow"  # Better compression for archival
+
+# Elegant pacing - longer image duration for emotional impact
+sequences:
+  opening:
+    part1_duration: 4.0
+    part2_duration: 8.0
+  images:
+    duration_per_image: 7.0  # Slower pace for weddings
+  closing:
+    min_duration: 10.0
+
+# Gentle, elegant style
+style:
+  transitions:
+    duration: 1.0  # Smooth, longer transitions
+    categories: ["gentle", "dynamic", "artistic"]
+    weights: [0.85, 0.10, 0.05]  # Mostly gentle transitions
+
+  ken_burns:
+    application_rate: 0.70  # More photos with movement
+    zoom_range: [1.0, 1.06]  # Subtle zoom
+    pan_amount: 0.05
+    speed_variations: [0.8, 1.0]  # Slower movements
+
+  color_grading:
+    preset: "soft"  # Film-like, romantic quality
+
+  audio:
+    fade_in: 2.0  # Gentle audio fade
+    fade_out: 3.0
+
+# Romantic text overlays
+text_overlays:
+  opening:
+    enabled: true
+    main:
+      text: "Our Wedding Day"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 90
+      fontcolor: "white"
+      position:
+        x: "(w-text_w)/2"
+        y: "810-text_h/2"
+      shadow:
+        color: "black@0.6"
+        x: 4
+        y: 4
+      effects:
+        fade_in: 1.5
+        fade_out: 1.5
+      text_shaping: 0
+
+  closing:
+    enabled: true
+    main:
+      text: "Just Married!"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 95
+      fontcolor: "white"
+      position:
+        x: "(w-text_w)/2"
+        y_offset: -80
+      shadow:
+        color: "black@0.6"
+        x: 4
+        y: 4
+      effects:
+        fade_in: 2.0
+        fade_out: 3.0
+      text_shaping: 0
+
+    subtitles:
+      - text: "The beginning of our journey together"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 48
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 50
+        shadow:
+          color: "black@0.6"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 2.0
+          fade_out: 3.0
+        text_shaping: 0
+
+      - text: "Forever starts today"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 44
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 105
+        shadow:
+          color: "black@0.6"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 2.0
+          fade_out: 3.0
+        text_shaping: 0
+
+    base_position:
+      y: 0.75

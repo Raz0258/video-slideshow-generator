@@ -1,0 +1,131 @@
+# Birthday Celebration Template
+# Vibrant theme with dynamic transitions and bright colors
+
+project:
+  name: "Birthday Celebration"
+  description: "Happy birthday slideshow"
+  version: "1.0"
+
+# !! UPDATE THESE PATHS !!
+paths:
+  images_dir: "path/to/birthday/photos"
+  audio_dir: "path/to/birthday/music"
+  output_file: "path/to/output/birthday_slideshow.mp4"
+  preview_file: "path/to/output/birthday_preview.mp4"
+
+# !! SET YOUR SPECIAL PHOTO !!
+special_images:
+  opening_closing: "birthday_photo.jpg"
+
+# Standard video settings
+video_settings:
+  resolution: [1920, 1080]
+  fps: 30
+  crf: 23  # Good quality, smaller files
+  preset: "medium"
+
+# Upbeat pacing
+sequences:
+  opening:
+    part1_duration: 2.0
+    part2_duration: 5.0
+  images:
+    duration_per_image: 5.0  # Faster pace for energy
+  closing:
+    min_duration: 6.0
+
+# Energetic, vibrant style
+style:
+  transitions:
+    duration: 0.8
+    categories: ["gentle", "dynamic", "artistic"]
+    weights: [0.60, 0.30, 0.10]  # More dynamic transitions
+
+  ken_burns:
+    application_rate: 0.70
+    zoom_range: [1.0, 1.10]  # More pronounced zoom
+    pan_amount: 0.08
+    speed_variations: [0.7, 0.85, 1.0]
+
+  color_grading:
+    preset: "vibrant"  # Bright, energetic colors
+
+  audio:
+    fade_in: 0.5
+    fade_out: 1.5
+
+# Celebratory text overlays
+text_overlays:
+  opening:
+    enabled: true
+    main:
+      text: "Happy Birthday!"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 95
+      fontcolor: "gold"
+      position:
+        x: "(w-text_w)/2"
+        y: "810-text_h/2"
+      shadow:
+        color: "black@0.7"
+        x: 5
+        y: 5
+      effects:
+        fade_in: 0.8
+        fade_out: 0.8
+      text_shaping: 0
+
+  closing:
+    enabled: true
+    main:
+      text: "Best Wishes!"
+      font: "C:/Windows/Fonts/arial.ttf"
+      fontsize: 90
+      fontcolor: "gold"
+      position:
+        x: "(w-text_w)/2"
+        y_offset: -70
+      shadow:
+        color: "black@0.7"
+        x: 5
+        y: 5
+      effects:
+        fade_in: 1.0
+        fade_out: 2.0
+      text_shaping: 0
+
+    subtitles:
+      - text: "Celebrating another amazing year"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 50
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 50
+        shadow:
+          color: "black@0.7"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 1.0
+          fade_out: 2.0
+        text_shaping: 0
+
+      - text: "Cheers to many more!"
+        font: "C:/Windows/Fonts/arial.ttf"
+        fontsize: 46
+        fontcolor: "white"
+        position:
+          x: "(w-text_w)/2"
+          y_offset: 108
+        shadow:
+          color: "black@0.7"
+          x: 3
+          y: 3
+        effects:
+          fade_in: 1.0
+          fade_out: 2.0
+        text_shaping: 0
+
+    base_position:
+      y: 0.75
